@@ -1,17 +1,17 @@
 def part_1
-  file = File.open('./day01/file.in')
+  max = File.readlines('./day01/file.in', chomp: true).slice_before('').lazy.map { |group| group.map(&:to_i).sum }.max
 
-  max_sum = file.read.split("\n\n").map { |x| x.split("\n").map(&:to_i) }.map(&:sum).max
-
-  puts "Part 1: #{max_sum}"
+  puts "Part 1: #{max}"
 end
 
 def part_2
-  file = File.open('./day01/file.in')
-
-  sum_top_three = file.read.split("\n\n").map do |x|
-    x.split("\n").map(&:to_i)
-  end.map(&:sum).sort.reverse.first(3).reduce(:+)
+  sum_top_three = File.readlines('./day01/file.in', chomp: true)
+                      .slice_before('')
+                      .map { |group| group.map(&:to_i).sum }
+                      .sort
+                      .reverse
+                      .take(3)
+                      .sum
 
   puts "Part 2: #{sum_top_three}"
 end
