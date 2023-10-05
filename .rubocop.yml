@@ -1,2 +1,8 @@
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
