@@ -9,7 +9,7 @@ module Day00
   end
 
   if $PROGRAM_NAME == __FILE__
-    lines = File.readlines('./day00/file.in', chomp: true)
+    lines = File.readlines('./day00/input.in', chomp: true)
 
     puts "Part 1: #{part1(lines)}"
     puts "Part 2: #{part2(lines)}"
