@@ -10,7 +10,7 @@ RSpec.describe Day02 do
   end
 
   describe 'part2' do
-    it 'returns score of 15 in simple case' do
+    it 'returns score of 12 in simple case' do
       input = [['A', 'Y'], ['B', 'X'], ['C', 'Z']]
 
       expect(Day02.part2(input)).to eq(12)
