@@ -6,19 +6,16 @@ module Day02
     'SCISSORS' => 3
   }.freeze
 
-  NORM = {
-    'A' => 'ROCK',
-    'X' => 'ROCK',
-    'B' => 'PAPER',
-    'Y' => 'PAPER',
-    'C' => 'SCISSORS',
-    'Z' => 'SCISSORS'
-  }.freeze
-
-  BEATING = {
+  LOSER_BY_WINNER = {
     'ROCK' => 'SCISSORS',
     'SCISSORS' => 'PAPER',
     'PAPER' => 'ROCK'
+  }.freeze
+
+  WINNER_BY_LOSER = {
+    'SCISSORS' => 'ROCK',
+    'PAPER' => 'SCISSORS',
+    'ROCK' => 'PAPER'
   }.freeze
 
   def self.part1(lines)
@@ -42,15 +39,55 @@ module Day02
   end
 
   def self.normalize(choice)
-    NORM[choice]
+    case choice
+    when 'A', 'X'
+      'ROCK'
+    when 'B', 'Y'
+      'PAPER'
+    when 'C', 'Z'
+      'SCISSORS'
+    end
   end
 
   def self.beats?(my_choice, opponent_choice)
-    BEATING[my_choice] == opponent_choice
+    LOSER_BY_WINNER[my_choice] == opponent_choice
   end
 
-  def self.part2(_lines)
-    'world'
+  def self.get_my_choice_from_outcome(opponent_choice, outcome)
+    if outcome == 'LOSE'
+      LOSER_BY_WINNER[opponent_choice]
+    elsif outcome == 'DRAW'
+      opponent_choice
+    else
+      WINNER_BY_LOSER[opponent_choice]
+    end
+  end
+
+  def self.part2(lines)
+    my_score = 0
+
+    lines.each do |line|
+      opponent_choice = normalize(line[0])
+
+      outcome = if line[1] == 'X'
+                  'LOSE'
+                else
+                  line [1] == 'Y' ? 'DRAW' : 'WIN'
+                end
+
+      my_choice = get_my_choice_from_outcome(opponent_choice, outcome)
+
+      my_score += CHOICE_WEIGHT[my_choice]
+      my_score += if beats?(my_choice, opponent_choice)
+                    6
+                  elsif beats?(opponent_choice, my_choice)
+                    0
+                  else
+                    3
+                  end
+    end
+
+    my_score
   end
 
   if $PROGRAM_NAME == __FILE__
