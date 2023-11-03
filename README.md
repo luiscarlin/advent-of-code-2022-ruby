@@ -16,10 +16,26 @@ gem install bundler
 bundler install
 ```
 
-Run tests
+Start a new challenge
 
 ```bash
+./new.sh day01
+```
+
+Run a challenge
+
+```bash
+ruby ./day02/day02.rb
+```
+
+Running tests
+
+```bash
+# run all tests
 bundler exec rake test
+
+# run a specific test
+bundler exec rspec ./day02/day02_spec.rb
 ```
 
 Run linter
